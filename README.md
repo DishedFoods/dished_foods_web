@@ -1,117 +1,136 @@
-# DisheD 🍽️
+# Dished
 
-**Canada's Home Kitchen Marketplace** — A Next.js 14 + Tailwind CSS web application connecting independent home chefs with customers across Canada.
+**Canada's Home Kitchen Marketplace** — A Next.js 14 + Tailwind CSS static site connecting independent home chefs with customers across Canada.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# 1. Install dependencies
+# Install dependencies
 npm install
 
-# 2. Start development server
+# Start development server
 npm run dev
 
-# 3. Open in browser
-open http://localhost:3000
+# Open in browser
+# http://localhost:3000
+
+# Production build (stop dev server first)
+npm run build
 ```
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout + metadata
-│   ├── page.tsx            # Main page (composes all sections)
-│   └── globals.css         # Tailwind + global styles + animations
+│   ├── layout.tsx           # Root layout + metadata + favicon
+│   ├── page.tsx             # Main page (composes all sections)
+│   ├── globals.css          # Tailwind + global styles + animations
+│   ├── privacy/page.tsx     # Privacy policy page
+│   └── terms/page.tsx       # Terms of service page
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Navbar.tsx      # Fixed nav with auth + cart
-│   │   └── Footer.tsx      # Footer with province tags
+│   │   ├── Navbar.tsx       # Fixed nav — "Become a Chef" coming soon
+│   │   ├── Footer.tsx       # Footer with province tags
+│   │   └── LegalLayout.tsx  # Shared layout for legal pages
 │   │
 │   ├── sections/
-│   │   ├── HeroSection.tsx    # Split hero with postal search
-│   │   ├── ChefGrid.tsx       # Chef cards with filter + sort
-│   │   ├── HowItWorks.tsx     # 3-step explainer cards
-│   │   ├── AboutSection.tsx   # Story + photo gallery
-│   │   ├── BecomeChefCTA.tsx  # Dark CTA section
-│   │   └── VideoModal.tsx     # Video overlay modal
+│   │   ├── HeroSection.tsx        # Split hero with postal search + chef scene
+│   │   ├── ChefShowcaseBanner.tsx # Full-bleed stats banner
+│   │   ├── ChefGrid.tsx           # Chef cards with filter + sort
+│   │   ├── HowItWorks.tsx         # 3-step explainer cards
+│   │   ├── AboutSection.tsx       # Story + photo gallery
+│   │   └── BecomeChefCTA.tsx      # Dark CTA section (coming soon)
 │   │
 │   ├── chef/
-│   │   ├── ChefCard.tsx    # Individual chef card (heart, badge, story ring)
-│   │   └── ChefModal.tsx   # Chef detail + menu + cart
-│   │
-│   ├── auth/
-│   │   └── AuthModal.tsx   # Login / Register / Phone OTP modal
-│   │
-│   ├── order/
-│   │   └── OrderModal.tsx  # 3-step checkout (cart → delivery → confirm)
+│   │   ├── ChefCard.tsx     # Chef card (badge, story ring, cuisines)
+│   │   └── ChefModal.tsx    # Chef detail modal (bio + info only)
 │   │
 │   └── ui/
-│       ├── Icons.tsx        # All SVG icon components
-│       ├── StarRating.tsx   # Reusable star rating
-│       └── Toast.tsx        # Notification toast
+│       ├── Icons.tsx          # All SVG icon components
+│       ├── StarRating.tsx     # Reusable star rating
+│       ├── Toast.tsx          # Notification toast
+│       └── ChefHeroScene.tsx  # Animated photo hero scene (hero right panel)
 │
 ├── lib/
-│   ├── data.ts             # Chef data, filter options, image URLs
-│   └── utils.ts            # formatPostal, validatePostal, filterAndSort, sleep
+│   ├── data.ts              # Chef data, cuisine filters, gallery images
+│   └── utils.ts             # formatPostal, validatePostal, filterAndSort
 │
 └── types/
-    └── index.ts            # Chef, CartItem, AuthTab, OrderStep, etc.
+    └── index.ts             # Chef, SortOption
 ```
 
 ---
 
-## ✅ Features Implemented
+## Features
 
 | Feature | Status |
 |---|---|
 | Canadian postal code search (A1A 1A1) with validation | ✅ |
-| Chef cards with story ring, badge, heart save | ✅ |
-| Cuisine filter pills (7 options) | ✅ |
+| Animated cinematic hero scene (photo crossfade on scroll) | ✅ |
+| Steam wisps + heart particle animations | ✅ |
+| Ken Burns image animation + parallax scroll | ✅ |
+| Chef cards with story ring, badge, cuisine tags | ✅ |
+| Cuisine filter pills (8 options) | ✅ |
 | Sort dropdown (5 options) | ✅ |
-| Chef detail modal with menu + about tab | ✅ |
-| Add/remove items with quantity counter | ✅ |
-| 3-step order modal (cart → delivery → confirm) | ✅ |
-| Auth modal with login/register/OTP flows | ✅ |
-| Role selection (Chef / Customer) | ✅ |
-| Video story modal | ✅ |
+| Chef detail modal with bio | ✅ |
 | Smooth scroll navigation | ✅ |
 | Toast notifications | ✅ |
-| Animated hero section | ✅ |
 | How It Works hover cards | ✅ |
 | About / gallery section | ✅ |
-| Become a Chef CTA | ✅ |
+| Become a Chef — coming soon state | ✅ |
 | Fully responsive footer with province tags | ✅ |
+| Privacy policy + Terms of service pages | ✅ |
+| Dished favicon + Apple touch icon | ✅ |
+| Prefers-reduced-motion accessibility support | ✅ |
 
 ---
 
-## 🎨 Tech Stack
+## Chef Lineup
 
-- **Framework**: Next.js 14 (App Router)
+| Chef | Cuisine | Province |
+|---|---|---|
+| Priya Nair | South Indian, Kerala, Vegetarian | ON |
+| Arjun Malhotra | Punjabi, North Indian, Mughlai | ON |
+| Mei Lin Zhang | Cantonese, Dim Sum, Hong Kong | BC |
+| Wei Chen | Sichuan, Chinese Street Food | BC |
+| Nalini Patel | Gujarati, Indo-Chinese, Fusion | ON |
+| Tanvir Rahman | Bengali, South Asian, Multicultural | ON |
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 14.2.35 (App Router)
 - **Styling**: Tailwind CSS 3.4
 - **Language**: TypeScript
-- **Images**: `next/image` with Unsplash
-- **Fonts**: Playfair Display + DM Sans (Google Fonts)
+- **Images**: `next/image` with Unsplash + local `/public/images/`
+- **Fonts**: Fraunces (serif) + DM Sans (sans-serif) — Google Fonts
 
 ---
 
-## 🍁 Canadian Postal Code Format
+## Deployment
 
-Search bar validates the `A1A 1A1` format (alternating letter-digit-letter digit-letter-digit).  
-All 10 provinces are displayed in the footer: ON, BC, QC, AB, MB, SK, NS, NB, NL, PE.
+Hosted on Vercel. Push to `dev` branch triggers a preview deployment.
+
+```bash
+git add .
+git commit -m "your message"
+git push origin dev
+```
 
 ---
 
-## 📦 Next Steps (Production)
+## Next Steps (Production)
 
-- Connect to a real backend (Node.js/Express + PostgreSQL)
-- Add Mapbox map discovery view
-- Integrate Stripe for payments
-- Add Twilio for real phone OTP
-- Add chef onboarding + document upload flow
-- Province-based compliance verification logic
+- Connect to a real backend (Node.js + PostgreSQL)
+- Chef registration + onboarding flow
+- Stripe payments integration
+- Mapbox map discovery view
+- Real order management system
+- Province-based compliance verification
