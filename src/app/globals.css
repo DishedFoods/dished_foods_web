@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --green-primary: #4d9e8a;
+  --green-dark:    #3a8273;
+  --green-deeper:  #2a6155;
+  --green-light:   #aee3d6;
+  --green-lighter: #d6f0e9;
+  --green-border:  #7dcfc1;
+  --bg:            #f0faf8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--bg);
+  color: #1a2b28;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--green-light);
+  color: var(--green-deeper);
+}
+
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green-border); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-primary); }
+
+/* ── Accessibility ── */
+:focus-visible {
+  outline: 2px solid var(--green-primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ── Animations ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseRing {
+  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.55); opacity: 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-float      { animation: float 3s ease-in-out infinite; }
+.animate-slide-down { animation: slideDown 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-slide-up   { animation: slideUp  0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.animate-pulse-ring { animation: pulseRing 2.2s ease-out infinite; }
+.animate-fade-in    { animation: fadeIn 0.3s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ── Typography ── */
+.gradient-text {
+  background: linear-gradient(135deg, #4cb9a5 10%, #4d9e8a 50%, #3a8273 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Nav ── */
+.glass-nav {
+  background: rgba(240, 250, 248, 0.96);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* ── Hero ── */
+.hero-overlay {
+  background: linear-gradient(160deg,
+    rgba(42, 97, 85, 0.48) 0%,
+    rgba(0, 0, 0, 0.06) 55%,
+    rgba(42, 97, 85, 0.52) 100%
+  );
+}
+
+/* ── Cards ── */
+.card-hover {
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(77, 158, 138, 0.16);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  @apply text-white font-bold rounded-xl cursor-pointer;
+  background: var(--green-primary);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  box-shadow: 0 3px 0 var(--green-deeper), 0 6px 18px rgba(77, 158, 138, 0.24);
+}
+.btn-primary:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 var(--green-deeper), 0 10px 24px rgba(77, 158, 138, 0.28);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--green-deeper), 0 3px 10px rgba(77, 158, 138, 0.18);
+}
+
+.btn-outline {
+  @apply font-bold rounded-xl cursor-pointer;
+  background: transparent;
+  color: var(--green-dark);
+  border: 1.5px solid var(--green-border);
+  transition: all 0.18s ease;
+}
+.btn-outline:hover {
+  background: var(--green-lighter);
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+}
+.btn-outline:active { transform: scale(0.97); }
+
+.btn-ghost {
+  @apply font-semibold rounded-xl cursor-pointer;
+  background: transparent;
+  color: #6b7280;
+  border: 1.5px solid #e5e7eb;
+  transition: all 0.18s ease;
+}
+.btn-ghost:hover {
+  background: var(--green-lighter);
+  border-color: var(--green-border);
+  color: var(--green-dark);
+}
+.btn-ghost:active { transform: scale(0.97); }
+
+/* ── Modal ── */
+.modal-backdrop {
+  background: rgba(10, 28, 24, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* ── Tags ── */
+.tag {
+  @apply text-xs font-semibold px-2.5 py-1 rounded-full;
+  background: var(--green-lighter);
+  color: var(--green-deeper);
+  border: 1px solid var(--green-border);
+}
+
+/* ── Section label (eyebrow) ── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--green-deeper);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  flex: 0 0 28px;
+  height: 1px;
+  background: var(--green-border);
+}
+
+/* ── Legal prose ──────────────────────────────────────── */
+.legal-content h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #111827;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e8f6f2;
+  scroll-margin-top: 80px;
+}
+.legal-content h3 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #374151;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.legal-content p {
+  font-size: 0.9rem;
+  color: #4B5563;
+  line-height: 1.75;
+  margin-bottom: 0.85rem;
+}
+.legal-content ul, .legal-content ol {
+  padding-left: 1.4rem;
+  margin-bottom: 0.85rem;
+}
+.legal-content li {
+  font-size: 0.9rem;
+  color: #4B5563;
+  line-height: 1.7;
+  margin-bottom: 0.35rem;
+}
+.legal-content a {
+  color: var(--green-dark);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.legal-content strong {
+  color: #1F2937;
+  font-weight: 700;
+}
+.legal-content .notice-box {
+  background: #e8f6f2;
+  border: 1px solid #aee3d6;
+  border-left: 3px solid var(--green-primary);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.25rem 0;
+  font-size: 0.875rem;
+  color: #2a6155;
+  line-height: 1.6;
+}

@@ -1,0 +1,43 @@
+# deps
+/node_modules
+/.pnp
+.pnp.js
+
+# next
+/.next/
+/out/
+
+# prod
+/build
+
+# misc
+.DS_Store
+*.pem
+.env*.local
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+
+# local AI tool configs (never commit these)
+.claude/
+.agent/
+.qodo/
+.qoder/
+.cursor/
+.windsurf/
+.aider*
+.codebuddy/
+.codex/
+.continue/
+.gemini/
+.kiro/
+.opencode/
+.roo/
+.trae/
+.github/
+
+# design system docs (internal only)
+design-system/
+
+# typescript build cache
+tsconfig.tsbuildinfo
