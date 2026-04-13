@@ -13,7 +13,7 @@ const FOOTER_LINKS = [
     title: "Company",
     links: [
       { label: "About Us",    sectionId: "about-section", href: null },
-      { label: "How It Works",sectionId: "how-section",   href: null },
+      { label: "How It Works",sectionId: "dual-role",   href: null },
       { label: "Our Chefs",   sectionId: "chefs-section", href: null },
       { label: "Blog",        sectionId: null,             href: null },
     ],
@@ -32,6 +32,7 @@ const FOOTER_LINKS = [
     links: [
       { label: "Privacy Policy", sectionId: null, href: "/privacy" },
       { label: "Terms of Service", sectionId: null, href: "/terms" },
+      { label: "FAQ",             sectionId: null, href: "/faq" },
       { label: "Help Centre",    sectionId: null, href: null },
       { label: "Contact Us",     sectionId: null, href: "mailto:support@dished.ca" },
     ],
@@ -44,7 +45,18 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-gray-900 text-white/60 pt-12 pb-7 px-5 md:px-12">
+    <footer
+      className="relative pt-16 pb-8 px-5 md:px-12 text-white/65"
+      style={{
+        background:
+          "radial-gradient(1000px 400px at 20% 0%, rgba(30,76,63,0.55), transparent 60%), linear-gradient(180deg, #0f1c1a 0%, #081411 100%)",
+      }}
+    >
+      {/* Gold hairline across the top of the footer */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent"
+      />
       <div className="max-w-[1200px] mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr] gap-8 md:gap-10 mb-9">
 
@@ -52,9 +64,9 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-3.5">
               <div className="w-8 h-8 rounded-xl overflow-hidden flex-shrink-0">
-                <Image src="/dished-icon.png" width={32} height={32} alt="Dished" className="w-full h-full object-cover" />
+                <Image src="/dished_logo1.png" width={32} height={32} alt="Dished" className="w-full h-full object-contain p-1" />
               </div>
-              <span className="font-serif font-black text-xl text-white">Dished</span>
+              <span className="font-serif text-2xl text-white" style={{ fontWeight: 700, letterSpacing: "-0.01em" }}>Dished</span>
             </div>
             <p className="text-sm leading-relaxed max-w-[260px]">
               Canada&apos;s home kitchen marketplace. Connecting passionate chefs with hungry
@@ -82,19 +94,19 @@ export function Footer() {
                     // Real page or mailto link
                     href.startsWith("mailto:") ? (
                       <a href={href}
-                        className="text-sm text-white/60 hover:text-green-300 transition-colors duration-200">
+                        className="text-sm text-white/60 hover:text-[#e6c89a] transition-colors duration-200">
                         {label}
                       </a>
                     ) : (
                       <Link href={href}
-                        className="text-sm text-white/60 hover:text-green-300 transition-colors duration-200">
+                        className="text-sm text-white/60 hover:text-[#e6c89a] transition-colors duration-200">
                         {label}
                       </Link>
                     )
                   ) : sectionId ? (
                     // Scroll-to-section
                     <button onClick={() => scrollTo(sectionId)}
-                      className="text-sm text-white/60 hover:text-green-300 transition-colors duration-200
+                      className="text-sm text-white/60 hover:text-[#e6c89a] transition-colors duration-200
                                  bg-transparent border-none cursor-pointer font-sans text-left">
                       {label}
                     </button>
@@ -119,7 +131,7 @@ export function Footer() {
         <div className="flex gap-1.5 flex-wrap mb-5">
           {CANADIAN_PROVINCES.map((p) => (
             <span key={p}
-              className="text-[11px] text-green-500 bg-green-600/10 px-2 py-0.5 rounded-md font-bold">
+              className="text-[11px] text-[#e6c89a] bg-[rgba(184,137,90,0.12)] border border-[rgba(184,137,90,0.25)] px-2.5 py-0.5 rounded-md font-semibold tracking-wide">
               {p}
             </span>
           ))}

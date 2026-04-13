@@ -12,9 +12,21 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
+*.log
+npm-debug.log*
+
+# env — never commit secrets
+.env
+.env.*
 .env*.local
+!.env.example
+
+# vercel
 .vercel
+
+# typescript build cache
 *.tsbuildinfo
 next-env.d.ts
 
@@ -39,5 +51,8 @@ next-env.d.ts
 # design system docs (internal only)
 design-system/
 
-# typescript build cache
-tsconfig.tsbuildinfo
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
