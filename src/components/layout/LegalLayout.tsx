@@ -22,7 +22,7 @@ export function LegalLayout({ title, subtitle, effectiveDate, lastUpdated, secti
         <div className="max-w-[1100px] mx-auto px-5 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-xl overflow-hidden shadow-sm flex-shrink-0">
-              <Image src="/dished-icon.png" width={32} height={32} alt="Dished" className="w-full h-full object-cover" />
+              <Image src="/dished_logo1.png" width={32} height={32} alt="Dished" className="w-full h-full object-contain p-1" />
             </div>
             <span className="font-serif font-black text-lg text-gray-900">Dished</span>
           </Link>
