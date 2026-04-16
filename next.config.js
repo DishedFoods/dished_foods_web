@@ -9,22 +9,22 @@ const cspDirectives = [
   // Google Identity Services (accounts.google.com/gsi/client) also needs
   // to be allowed as a script source for the OAuth popup flow.
   isDev
-    ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com https://appleid.cdn-apple.com"
-    : "script-src 'self' 'unsafe-inline' https://accounts.google.com https://appleid.cdn-apple.com",
+    ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://accounts.google.com"
+    : "script-src 'self' 'unsafe-inline' https://accounts.google.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com",
   "font-src 'self' https://fonts.gstatic.com",
   "img-src 'self' data: blob: https://images.unsplash.com https://ui-avatars.com https://lh3.googleusercontent.com",
   // Allow blob: and data: for locally-uploaded video previews
   "media-src 'self' blob: data:",
-  // Google + Apple OAuth API calls
+  // Google OAuth API calls
   // All backend calls go through /api/v1/* (same-origin proxy) so no external connect-src needed for the API.
-  "connect-src 'self' https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com https://appleid.apple.com",
-  // Google + Apple OAuth popups/iframes
-  "frame-src https://accounts.google.com https://appleid.apple.com",
+  "connect-src 'self' https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com",
+  // Google OAuth popups/iframes
+  "frame-src https://accounts.google.com",
   "frame-ancestors 'none'",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self' https://accounts.google.com https://appleid.apple.com",
+  "form-action 'self' https://accounts.google.com",
   "upgrade-insecure-requests",
 ].join("; ");
 

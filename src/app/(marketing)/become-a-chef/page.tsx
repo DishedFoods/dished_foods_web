@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGoogleLogin } from "@react-oauth/google";
-import { AppleSSOButton } from "@/components/providers/AppleSSOButton";
 import { useAuth } from "@/context/AuthContext";
 import { registerChef, loginChef, createChefProfile, type ApiError } from "@/lib/api";
 import {
@@ -285,47 +284,6 @@ function BecomeAChefContent() {
     clearState();
   };
 
-  /* ── Apple SSO handler ─────────────────────────────── */
-  const handleAppleSSO = useCallback(async (
-    idToken: string,
-    user?: { name?: { firstName?: string; lastName?: string }; email?: string } | null
-  ) => {
-    clearState();
-    setLoading(true);
-    try {
-      const res = await fetch("/api/auth/apple", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken, user: user ?? null }),
-      });
-
-      const data = await res.json() as {
-        id?: number; username?: string; email?: string;
-        status?: string; error?: string;
-      };
-
-      if (!res.ok) {
-        setApiError(data.error || "Apple sign-in failed. Please try again.");
-        return;
-      }
-
-      setUser({
-        id: data.id!,
-        username: data.username!,
-        email: data.email!,
-        status: data.status ?? "active",
-        role: "cook",
-      });
-
-      setSuccess("Signed in with Apple! Redirecting...");
-      setTimeout(() => router.push("/chef/dashboard"), 1200);
-    } catch {
-      setApiError("Apple sign-in failed. Please check your connection and try again.");
-    } finally {
-      setLoading(false);
-    }
-  }, [clearState, router, setUser]);
-
   /* ── Forgot-password handler ───────────────────────── */
   const handleForgotPassword = useCallback(async (e: FormEvent) => {
     e.preventDefault();
@@ -544,11 +502,6 @@ function BecomeAChefContent() {
                   <GoogleSSOButton
                     disabled={loading}
                     onSuccess={handleGoogleSSO}
-                    onError={setApiError}
-                  />
-                  <AppleSSOButton
-                    disabled={loading}
-                    onSuccess={handleAppleSSO}
                     onError={setApiError}
                   />
                 </div>

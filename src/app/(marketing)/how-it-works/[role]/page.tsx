@@ -134,8 +134,8 @@ export default function HowItWorksPage({ params }: { params: { role: string } })
         {/* Dished Feed — Instagram-style vertical scroll preview */}
         <DishedFeedPreview />
 
-        {/* Hot Line surplus — distinct urgent alert (chef-gated) */}
-        <HotLineSurplus />
+        {/* Hot Line surplus — chef-only feature */}
+        {params.role === "cook" && <HotLineSurplus />}
 
         <Footer />
       </div>

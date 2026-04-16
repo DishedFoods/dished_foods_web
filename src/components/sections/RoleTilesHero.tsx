@@ -43,7 +43,7 @@ const ROLES = [
     eyebrow: "For Couriers",
     title: "Courier",
     tagline: "Flexible routes. White-glove deliveries.",
-    image: "https://images.unsplash.com/photo-1526367790999-0150786686a2?w=1100&h=900&fit=crop&q=85",
+    image: "/CourierImage.png",
     accent: "from-[#1e4c3f]/55 via-[#1e4c3f]/10 to-[#0f2a23]/80",
   },
 ];
@@ -214,12 +214,12 @@ function RoleTile({
         {/* Courier tile: Dished logo on delivery bag/equipment */}
         {role.slug === "delivery" && (
           <div
-            className="absolute bottom-32 right-8 w-16 h-16 md:w-20 md:h-20
+            className="absolute top-[44%] left-1/2 w-16 h-16 md:w-20 md:h-20
                        rounded-2xl flex items-center justify-center
-                       bg-white/90 backdrop-blur-sm
-                       border border-[rgba(184,137,90,0.3)]
+                       bg-[#c29765] backdrop-blur-sm
+                       border border-[rgba(143,99,56,0.4)]
                        shadow-[0_8px_24px_-8px_rgba(0,0,0,0.25)]
-                       rotate-[-6deg]"
+                       -translate-x-1/2 -translate-y-1/2 rotate-[-6deg]"
             aria-hidden="true"
           >
             <Image
@@ -227,7 +227,8 @@ function RoleTile({
               alt=""
               width={48}
               height={48}
-              className="object-contain opacity-85"
+              className="object-contain"
+              style={{ filter: "brightness(0) invert(1)" }}
             />
           </div>
         )}

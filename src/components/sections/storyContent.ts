@@ -24,12 +24,12 @@ export const STORY_BY_ROLE: Record<"cook" | "foodie" | "delivery", StoryContent>
     eyebrow: "For Guests · The Mission",
     mission: "Taste the kitchens your city hides.",
     missionTail: "A seat at the neighbourhood table, any night of the week.",
-    utilities: ["Hand-curated chefs", "Cultural variety", "Hot Line deals", "Real stories, real meals"],
+    utilities: ["Hand-curated chefs", "Cultural variety", "Real stories, real meals"],
   },
   delivery: {
     eyebrow: "For Couriers · The Mission",
     mission: "Every route is a warm welcome.",
     missionTail: "White-glove handoffs, fairly paid.",
-    utilities: ["Flexible hours", "Transparent pay", "Hot Line priority", "Five-star reputation"],
+    utilities: ["Flexible hours", "Transparent pay", "Five-star reputation"],
   },
 };

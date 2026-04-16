@@ -37,16 +37,6 @@ const FEATURES = [
       </svg>
     ),
   },
-  {
-    title: "Hot Line",
-    subtitle: "Last-minute deals near you",
-    body: "A chef nearby just finished a big cook and has a few portions left. They\u2019ve marked it down. Tap the Hot Line icon and grab tonight\u2019s dinner at an even better price \u2014 before someone else does.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-      </svg>
-    ),
-  },
 ];
 
 /* ── Scroll-reveal helper ── */

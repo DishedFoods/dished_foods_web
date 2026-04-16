@@ -1,23 +1,21 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { MenuIcon, XIcon, ChevronIcon } from "@/components/ui/Icons";
+import { MenuIcon, XIcon } from "@/components/ui/Icons";
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import { Toast } from "@/components/ui/Toast";
 
-const NAV_ITEMS = [
-  { label: "How It Works", id: "dual-role"   },
-  { label: "About",        id: "about-section" },
-];
+type NavItem =
+  | { label: string; id: string }
+  | { label: string; href: string };
 
-const ROLE_OPTIONS = [
-  { label: "Cook",             desc: "Share your recipes & earn",  slug: "cook"     },
-  { label: "Foodie",           desc: "Order from home chefs",      slug: "foodie"   },
-  { label: "Delivery Partner", desc: "Deliver meals & earn",       slug: "delivery" },
+const NAV_ITEMS: NavItem[] = [
+  { label: "About", id: "about-section" },
+  { label: "FAQ",   href: "/faq"        },
 ];
 
 /* Logo: image only, no tagline.
@@ -46,13 +44,10 @@ export function Navbar() {
   const pathname = usePathname();
   const router   = useRouter();
   const isHome   = pathname === "/";
-  const [activeNav,      setActiveNav]      = useState("home");
-  const [toast,          setToast]          = useState<string | null>(null);
-  const [scrolled,       setScrolled]       = useState(false);
-  const [menuOpen,       setMenuOpen]       = useState(false);
-  const [openDropdown,   setOpenDropdown]   = useState<"account" | null>(null);
-  const [mobileSection,  setMobileSection]  = useState<"account" | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [activeNav, setActiveNav] = useState("home");
+  const [toast,     setToast]     = useState<string | null>(null);
+  const [scrolled,  setScrolled]  = useState(false);
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -66,23 +61,6 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null);
-      }
-    };
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenDropdown(null);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, []);
-
   const scrollTo = (id: string, nav: string) => {
     setActiveNav(nav);
     setMenuOpen(false);
@@ -91,10 +69,6 @@ export function Navbar() {
     } else {
       router.push(`/#${id}`);
     }
-  };
-
-  const toggleDropdown = () => {
-    setOpenDropdown((prev) => (prev === "account" ? null : "account"));
   };
 
   return (
@@ -123,13 +97,31 @@ export function Navbar() {
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map(({ label, id }) => {
-              const nav = id.replace("-section", "");
+            {NAV_ITEMS.map((item) => {
+              if ("href" in item) {
+                const active = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="px-3.5 py-2 rounded-xl text-[13.5px] font-semibold transition-all duration-200"
+                    style={{
+                      color: active ? "var(--nav-active-text)" : "var(--nav-text)",
+                      background: active ? "var(--nav-active-bg)" : "transparent",
+                    }}
+                    onMouseEnter={(e) => { if (!active) { e.currentTarget.style.color = "var(--nav-hover-text)"; e.currentTarget.style.background = "var(--nav-hover-bg)"; } }}
+                    onMouseLeave={(e) => { if (!active) { e.currentTarget.style.color = "var(--nav-text)"; e.currentTarget.style.background = "transparent"; } }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+              const nav = item.id.replace("-section", "");
               const active = activeNav === nav;
               return (
                 <button
-                  key={id}
-                  onClick={() => scrollTo(id, nav)}
+                  key={item.id}
+                  onClick={() => scrollTo(item.id, nav)}
                   className="px-3.5 py-2 rounded-xl text-[13.5px] font-semibold transition-all duration-200"
                   style={{
                     color: active ? "var(--nav-active-text)" : "var(--nav-text)",
@@ -138,7 +130,7 @@ export function Navbar() {
                   onMouseEnter={(e) => { if (!active) { e.currentTarget.style.color = "var(--nav-hover-text)"; e.currentTarget.style.background = "var(--nav-hover-bg)"; } }}
                   onMouseLeave={(e) => { if (!active) { e.currentTarget.style.color = "var(--nav-text)"; e.currentTarget.style.background = "transparent"; } }}
                 >
-                  {label}
+                  {item.label}
                 </button>
               );
             })}
@@ -186,7 +178,7 @@ export function Navbar() {
                 </button>
               </div>
             ) : (
-              <div ref={dropdownRef} className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
                 {/* Join the Wait List — primary CTA (luxury gold) */}
                 <Link
                   href="/waitlist"
@@ -201,69 +193,6 @@ export function Navbar() {
                   Join the Wait List
                 </Link>
 
-                {/* Account — single merged dropdown for Sign In / Sign Up */}
-                <div className="relative">
-                  <button
-                    onClick={toggleDropdown}
-                    aria-expanded={openDropdown === "account"}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-[13.5px] font-semibold
-                               transition-colors cursor-pointer"
-                    style={{ color: "var(--nav-text)" }}
-                  >
-                    Account
-                    <ChevronIcon up={openDropdown === "account"} />
-                  </button>
-                  {openDropdown === "account" && (
-                    <div
-                      className="absolute right-0 top-[calc(100%+8px)] w-60 rounded-2xl border
-                                  shadow-[0_8px_32px_rgba(0,0,0,0.12)] py-2 z-50 animate-slide-down"
-                      style={{
-                        background: "var(--nav-dropdown-bg)",
-                        borderColor: "var(--nav-dropdown-border)",
-                      }}
-                    >
-                      {/* Sign In section */}
-                      <div className="px-4 pt-2 pb-1">
-                        <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--nav-text)" }}>Sign In</div>
-                      </div>
-                      {ROLE_OPTIONS.map(({ label, desc, slug }) => (
-                        <Link
-                          key={`in-${slug}`}
-                          href={`/auth/${slug}?view=login`}
-                          onClick={() => setOpenDropdown(null)}
-                          className="flex flex-col px-4 py-2.5 transition-colors group cursor-pointer"
-                          style={{ color: "var(--nav-text-bold)" }}
-                        >
-                          <span className="text-[13px] font-semibold transition-colors">
-                            {label}
-                          </span>
-                          <span className="text-[11px] mt-0.5" style={{ color: "var(--nav-text)" }}>{desc}</span>
-                        </Link>
-                      ))}
-
-                      <div className="mx-3 my-1.5 h-px" style={{ background: "var(--nav-divider)" }} />
-
-                      {/* Sign Up section */}
-                      <div className="px-4 pt-1 pb-1">
-                        <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--nav-text)" }}>Create Account</div>
-                      </div>
-                      {ROLE_OPTIONS.map(({ label, desc, slug }) => (
-                        <Link
-                          key={`up-${slug}`}
-                          href={`/auth/${slug}?view=register`}
-                          onClick={() => setOpenDropdown(null)}
-                          className="flex flex-col px-4 py-2.5 transition-colors group cursor-pointer"
-                          style={{ color: "var(--nav-text-bold)" }}
-                        >
-                          <span className="text-[13px] font-semibold transition-colors">
-                            {label}
-                          </span>
-                          <span className="text-[11px] mt-0.5" style={{ color: "var(--nav-text)" }}>{desc}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
               </div>
             )}
           </div>
@@ -288,13 +217,31 @@ export function Navbar() {
               borderColor: "var(--nav-divider)",
             }}
           >
-            {NAV_ITEMS.map(({ label, id }) => {
-              const nav = id.replace("-section", "");
+            {NAV_ITEMS.map((item) => {
+              if ("href" in item) {
+                const active = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="px-4 py-3 rounded-xl text-[14px] font-semibold text-left
+                                transition-all duration-200 cursor-pointer"
+                    style={{
+                      color: active ? "var(--nav-active-text)" : "var(--nav-text-bold)",
+                      background: active ? "var(--nav-active-bg)" : "transparent",
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              }
+              const nav = item.id.replace("-section", "");
               const active = activeNav === nav;
               return (
                 <button
-                  key={id}
-                  onClick={() => scrollTo(id, nav)}
+                  key={item.id}
+                  onClick={() => scrollTo(item.id, nav)}
                   className="px-4 py-3 rounded-xl text-[14px] font-semibold text-left
                               transition-all duration-200 cursor-pointer"
                   style={{
@@ -302,7 +249,7 @@ export function Navbar() {
                     background: active ? "var(--nav-active-bg)" : "transparent",
                   }}
                 >
-                  {label}
+                  {item.label}
                 </button>
               );
             })}
@@ -370,49 +317,6 @@ export function Navbar() {
                   Join the Wait List
                 </Link>
 
-                {/* Account — merged Sign In / Sign Up */}
-                <button
-                  onClick={() => setMobileSection((s) => s === "account" ? null : "account")}
-                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl
-                             text-[14px] font-semibold transition-colors cursor-pointer"
-                  style={{ color: "var(--nav-text-bold)" }}
-                >
-                  Account
-                  <ChevronIcon up={mobileSection === "account"} />
-                </button>
-                {mobileSection === "account" && (
-                  <div className="flex flex-col gap-0.5 pl-3">
-                    <div className="px-4 pt-1 pb-0.5 text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--nav-text)" }}>
-                      Sign In
-                    </div>
-                    {ROLE_OPTIONS.map(({ label, slug }) => (
-                      <Link
-                        key={`in-${slug}`}
-                        href={`/auth/${slug}?view=login`}
-                        onClick={() => setMenuOpen(false)}
-                        className="px-4 py-2.5 rounded-xl text-[13.5px] font-semibold transition-colors"
-                        style={{ color: "var(--nav-text-bold)" }}
-                      >
-                        {label}
-                      </Link>
-                    ))}
-                    <div className="mx-4 my-1 h-px" style={{ background: "var(--nav-divider)" }} />
-                    <div className="px-4 pt-1 pb-0.5 text-[10px] font-bold uppercase tracking-wider" style={{ color: "var(--nav-text)" }}>
-                      Create Account
-                    </div>
-                    {ROLE_OPTIONS.map(({ label, slug }) => (
-                      <Link
-                        key={`up-${slug}`}
-                        href={`/auth/${slug}?view=register`}
-                        onClick={() => setMenuOpen(false)}
-                        className="px-4 py-2.5 rounded-xl text-[13.5px] font-semibold transition-colors"
-                        style={{ color: "var(--nav-text-bold)" }}
-                      >
-                        {label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </>
             )}
           </div>

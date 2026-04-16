@@ -12,8 +12,9 @@ export const metadata: Metadata = {
     "Discover passionate home chefs in your Canadian neighbourhood. Order authentic, homemade food delivered to your door.",
   keywords: ["home chef", "homemade food", "Canada", "food delivery", "authentic cuisine"],
   icons: {
-    icon: "/dished-icon.png",
-    apple: "/dished-icon.png",
+    icon: "/dishedIconSVG.svg",
+    shortcut: "/dishedIconSVG.svg",
+    apple: "/dishedIconSVG.svg",
   },
   openGraph: {
     title: "Dished — Canada's Home Kitchen",
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/dished_logo1.png" />
+        <link rel="icon" type="image/svg+xml" href="/dishedIconSVG.svg" />
         {/* Responsive viewport — required for mobile-first layout */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Disable automatic phone-number detection (prevents unintended links) */}

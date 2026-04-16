@@ -9,6 +9,11 @@ interface FAQItem {
 
 const FAQ_DATA: FAQItem[] = [
   {
+    question: "What is Dished?",
+    answer:
+      "Dished is a one-stop shop to exhibit your culinary skills and make money. You can sell anything from cookies, pickles, and snacks to your favourite signature dish — exhibit your skills and become a popular chef while earning money.",
+  },
+  {
     question: "How does Dished verify food safety and kitchen hygiene?",
     answer:
       "Every cook on Dished undergoes a verification process that includes a virtual kitchen walkthrough, proof of local food-handling certification (where required by province), and agreement to our hygiene standards. We also monitor customer reviews for safety-related flags and conduct periodic re-checks. Our goal is to hold home kitchens to the same trust standard you'd expect from a restaurant — without the overhead.",
