@@ -38,7 +38,7 @@ const ROLE_CONFIG: Record<Role, {
     backHover: "hover:text-orange-800",
     steps: COOK_STEPS,
     ctaLabel: "Become a Cook",
-    ctaHref: "/auth/cook?view=register",
+    ctaHref: "/#become-a-chef-waitlist",
   },
   foodie: {
     title: "Foodie",
@@ -51,7 +51,7 @@ const ROLE_CONFIG: Record<Role, {
     backHover: "hover:text-emerald-800",
     steps: FOODIE_STEPS,
     ctaLabel: "Find Cooks Near Me",
-    ctaHref: "/auth/foodie?view=register",
+    ctaHref: "/#become-a-chef-waitlist",
   },
   delivery: {
     title: "Delivery Partner",
@@ -64,7 +64,7 @@ const ROLE_CONFIG: Record<Role, {
     backHover: "hover:text-blue-800",
     steps: DELIVERY_STEPS,
     ctaLabel: "Start Delivering",
-    ctaHref: "/auth/delivery?view=register",
+    ctaHref: "/#become-a-chef-waitlist",
   },
 };
 
