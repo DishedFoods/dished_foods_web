@@ -5,7 +5,7 @@ import { LeadCaptureForm } from "./LeadCaptureForm";
 
 export function BecomeChefCTA() {
   return (
-    <section className="py-20 px-4 md:py-28 md:px-12">
+    <section id="become-a-chef-waitlist" className="py-20 px-4 md:py-28 md:px-12">
       <div className="max-w-[960px] mx-auto">
         <div
           className="relative overflow-hidden rounded-[32px] px-6 py-12 md:px-16 md:py-16

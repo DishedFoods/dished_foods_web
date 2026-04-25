@@ -374,7 +374,7 @@ function EmptyFeed() {
         Home chefs haven&apos;t posted any dishes yet. Are you a chef? Be the first to share!
       </p>
       <Link
-        href="/auth/cook?view=register"
+        href="/#become-a-chef-waitlist"
         className="px-5 py-2.5 bg-green-600 text-white font-semibold text-sm rounded-xl
                    hover:bg-green-700 transition-colors shadow-[0_4px_12px_rgba(77,158,138,0.3)]"
       >
